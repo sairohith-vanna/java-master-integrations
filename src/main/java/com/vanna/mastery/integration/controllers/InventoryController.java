@@ -1,8 +1,10 @@
 package com.vanna.mastery.integration.controllers;
 
+import com.vanna.mastery.integration.models.Inventory;
 import com.vanna.mastery.integration.models.ProductItem;
 import com.vanna.mastery.integration.services.InventoryManager;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -87,5 +89,15 @@ public class InventoryController {
     public ResponseEntity<?> updateProduct(@PathVariable("productId") UUID productId, @RequestBody ProductItem productItem) {
         var updatedProductItem = inventoryService.updateProductItem(productId, productItem);
         return ResponseEntity.ok(updatedProductItem);
+    }
+
+    @GetMapping("details")
+    @Operation(summary = "Get details of the inventory")
+    @ApiResponse(
+            description = "Fetches the details of the inventory",
+            responseCode = "200"
+    )
+    public ResponseEntity<Inventory> getInventoryDetails() {
+        return ResponseEntity.ok(inventoryService.getInventoryDetails());
     }
 }

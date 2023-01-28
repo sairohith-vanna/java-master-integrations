@@ -23,12 +23,13 @@ if [ "${TRACK_DEPLOYMENT_STATUS}" = 1 ]; then
     sleep 5 # Waiting for the rollout to initiate, in case it takes time
     echo "Verifying rollout every 10 seconds for 10 minutes"
     totaldesired=$(echo "$updatedservice" | jq -r '.service.desiredCount')
-    for _ in seq 60;
+    for _ in {1..60};
     do
         runningcount=$(aws ecs describe-services \
         --services jmi-sample-app-service-01 \
         --cluster java-mastery-sample-app-cluster \
         --query 'services[*].deployments[?status==`PRIMARY`].runningCount' | jq -r '.[0][0]')
+        echo "Latest version running count: $runningcount"
         if [ "$runningcount" = "$totaldesired" ]; then
             echo "Deployment complete"
             exit 0

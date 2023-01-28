@@ -1,5 +1,6 @@
 package com.vanna.mastery.integration.services;
 
+import com.vanna.mastery.integration.models.Inventory;
 import com.vanna.mastery.integration.models.ProductItem;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface InventoryManager {
     ProductItem addProductToInventory(ProductItem newProductItem);
     UUID deleteProductItem(UUID deletableProductId);
     ProductItem updateProductItem(UUID updatableProductId, ProductItem updateProductItemDetails);
+    Inventory getInventoryDetails();
 }
