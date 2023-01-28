@@ -1,12 +1,14 @@
 package com.vanna.mastery.integration.services;
 
+import com.vanna.mastery.integration.models.Inventory;
 import com.vanna.mastery.integration.models.ProductItem;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class InventoryService implements InventoryManager{
+public class InventoryService implements InventoryManager {
     
     @Override
     public List<ProductItem> getAllInventoryProductItems() {
@@ -34,6 +36,16 @@ public class InventoryService implements InventoryManager{
     @Override
     public ProductItem updateProductItem(UUID updatableProductId, ProductItem updateProductItemDetails) {
         return updateProductItemDetails;
+    }
+
+    @Override
+    public Inventory getInventoryDetails() {
+        return new Inventory(
+                UUID.randomUUID(),
+                RandomStringUtils.randomAlphabetic(10, 15),
+                new Random().nextInt(),
+                new Random().nextInt()
+        );
     }
 
     private List<ProductItem> generateRandomData() {

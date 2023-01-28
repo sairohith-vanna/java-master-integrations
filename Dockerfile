@@ -4,7 +4,7 @@ LABEL author="Vangala Sai Rohith"
 
 ADD . .
 
-RUN mvn package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 mvn clean package
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:17-alpine
