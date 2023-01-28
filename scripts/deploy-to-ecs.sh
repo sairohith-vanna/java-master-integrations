@@ -1,5 +1,13 @@
 #!/bin/sh
 
+if [ -z "${ECS_CLUSTER}" ]; then
+    echo "ECS_CLUSTER environment variable is required"
+    exit 1
+elif [ -z "${ECS_SERVICE}" ]; then
+    echo "ECS_SERVICE environment variable is required"
+    exit 1
+fi
+
 echo "Updating task definition with the latest build image"
 envsubst < task-definition.json > task-definition-release.json
 
